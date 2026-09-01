@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyberpunk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2048 Modern Deluxe - Ultra Edition</title>
+    <meta name="description"
+        content="A stunning, modern glassmorphic 2048 puzzle game with dynamic themes, fluid animations, and high-fidelity sound.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+
+<body>
+    <!-- Ambient Background Lighting Orbs -->
+    <div class="ambient-light orb-1"></div>
+    <div class="ambient-light orb-2"></div>
+    <div class="ambient-light orb-3"></div>
+
+    <div class="app-wrapper">
+        <!-- Game Header -->
+        <header class="game-header">
+            <div class="header-top">
+                <div class="logo-badge">
+                    <h1 class="game-title">20<span class="highlight">48</span></h1>
+                    <span class="badge-tag">DELUXE</span>
+                </div>
+                <div class="header-actions">
+                    <div class="theme-picker-wrapper">
+                        <label for="themeSelect" class="sr-only">Select Theme</label>
+                        <select id="themeSelect" class="glass-select" aria-label="Theme Selector"
+                            onchange="changeTheme(this.value)">
+                            <option value="cyberpunk">🌌 Cyberpunk Glow</option>
+                            <option value="sunset">🌅 Sunset Horizon</option>
+                            <option value="matrix">🍃 Emerald Matrix</option>
+                            <option value="classic">☕ Classic Warm</option>
+                        </select>
+                    </div>
+                    <button id="soundToggleBtn" class="glass-icon-btn" title="Toggle Sound" aria-label="Toggle Sound"
+                        onclick="toggleSound()">
+                        <span id="soundIcon">🔊</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Score Cards Bar -->
+            <div class="stats-bar">
+                <div class="score-card current-score">
+                    <span class="score-label">SCORE</span>
+                    <span id="score" class="score-value">0</span>
+                    <span id="scoreAddition" class="score-addition"></span>
+                </div>
+                <div class="score-card best-score">
+                    <span class="score-label">BEST</span>
+                    <span id="bestScore" class="score-value">0</span>
+                </div>
+                <div class="actions-card">
+                    <button id="newGameBtn" class="primary-btn" onclick="startNewGame()">New Game</button>
+                    <button id="pauseBtn" class="secondary-btn" onclick="pauseGame()"
+                        style="display: none;">Pause</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Game Stage -->
+        <main class="game-stage">
+            <div id="container">
+                <!-- Board Grid Background and Tile Grid -->
+                <div id="gamearea">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+
+                <!-- Overlay Screens -->
+                <!-- Splash / Start Screen -->
+                <div id="splash" class="modal-overlay">
+                    <div class="modal-card">
+                        <div class="splash-hero">
+                            <span class="splash-badge">JOIN THE TILES</span>
+                            <h1>20<span class="glow-txt-1">4</span><span class="glow-txt-2">8</span></h1>
+                            <p class="splash-subtitle">Merge matching numbers to reach the legendary 2048 tile!</p>
+                        </div>
+                        <button id="start" class="glow-button" onclick="start()">
+                            <span>Play Now</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pause Screen -->
+                <div id="pause" class="modal-overlay" style="display: none;">
+                    <div class="modal-card">
+                        <div class="modal-icon">⏸️</div>
+                        <h2>Game Paused</h2>
+                        <p>Take a breath. Your progress is safe.</p>
+                        <div class="modal-btn-group">
+                            <button class="primary-btn pulse" onclick="resumeGame()">Continue</button>
+                            <button class="secondary-btn" onclick="resetGame()">Restart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Over Screen -->
+                <div id="gameOverModal" class="modal-overlay" style="display: none;">
+                    <div class="modal-card">
+                        <div class="modal-icon">💥</div>
+                        <h2>Game Over</h2>
+                        <p class="modal-desc">No more valid moves available!</p>
+                        <div class="modal-score-summary">
+                            <div class="summary-box">
+                                <span>Final Score</span>
+                                <strong id="finalScoreVal">0</strong>
+                            </div>
+                            <div class="summary-box">
+                                <span>Best Score</span>
+                                <strong id="finalBestVal">0</strong>
+                            </div>
+                        </div>
+                        <button class="glow-button" onclick="resetGame()">Try Again</button>
+                    </div>
+                </div>
+
+                <!-- 2048 Victory Screen -->
+                <div id="winModal" class="modal-overlay" style="display: none;">
+                    <div class="modal-card win-card">
+                        <div class="modal-icon">🏆</div>
+                        <h2>You Won!</h2>
+                        <p class="modal-desc">Congratulations! You successfully forged the <strong>2048</strong> tile!
+                        </p>
+                        <div class="modal-btn-group">
+                            <button class="primary-btn pulse" onclick="continuePlaying()">Keep Going</button>
+                            <button class="secondary-btn" onclick="resetGame()">New Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Interactive Virtual D-Pad for Touch/Click -->
+        <div id="control" class="control-panel">
+            <div class="dpad-layout">
+                <button class="dpad-btn dpad-up" aria-label="Move Up" onclick="up()">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18 15 12 9 6 15"></polyline>
+                    </svg>
+                </button>
+                <div class="dpad-mid-row">
+                    <button class="dpad-btn dpad-left" aria-label="Move Left" onclick="left()">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dpad-center-hub">
+                        <span>MOVE</span>
+                    </div>
+                    <button class="dpad-btn dpad-right" aria-label="Move Right" onclick="right()">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <button class="dpad-btn dpad-down" aria-label="Move Down" onclick="down()">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Controls Helper Info -->
+        <footer class="game-footer">
+            <div class="hint-pill">
+                <span class="kbd-badge">↑</span>
+                <span class="kbd-badge">←</span>
+                <span class="kbd-badge">↓</span>
+                <span class="kbd-badge">→</span>
+                <span>or</span>
+                <span class="kbd-badge">W</span>
+                <span class="kbd-badge">A</span>
+                <span class="kbd-badge">S</span>
+                <span class="kbd-badge">D</span>
+                <span class="hint-text">to move tiles &bull; Swipe on touchscreens</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Celebration Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
