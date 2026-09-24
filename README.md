@@ -1,56 +1,64 @@
-# 🎮 2048 Deluxe Modern Edition
+# 🎮 Retro Arcade Deluxe (2048 • Snake • Tic-Tac-Toe)
 
 <p align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/License-ISC-blue?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/Games-2048%20|%20Snake%20|%20Tic--Tac--Toe-purple?style=for-the-badge" alt="Arcade Games" />
   <img src="https://img.shields.io/badge/Sound-Web%20Audio%20API-success?style=for-the-badge" alt="Web Audio API" />
 </p>
 
-An ultra-modern, aesthetic, and responsive edition of the classic **2048** puzzle game. Built with pure **HTML5, Vanilla CSS3 (Glassmorphism & CSS Variables)**, and **JavaScript (ES6+)**, featuring procedural synthesizer audio, switchable themes, celebratory confetti, responsive touch swipe controls, and persistent high scores.
+An ultra-modern, aesthetic, and responsive multi-game arcade suite built with pure **HTML5, Vanilla CSS3 (Glassmorphism & CSS Variables)**, and **JavaScript (ES6+)**. Featuring a sleek top navigation bar for seamless game switching between **2048 Deluxe**, **Neon Snake**, and **Neon Tic-Tac-Toe**, with procedural synthesizer audio, switchable themes, celebratory confetti, responsive touch swipe controls, and persistent high scores.
 
 ---
 
 ## ✨ Features
 
-- 💎 **Ultra-Modern Glassmorphism Design**: Sleek frosted glass cards, subtle ambient light orbs, smooth borders, and fluid animations.
-- 🎨 **4 Dynamic Switchable Themes**:
+- 🕹️ **Sleek Top Game Switcher Menu Bar**: Instant zero-reload switching between 2048, Snake, and Tic-Tac-Toe with glowing active tabs and state coordination.
+- 💎 **Ultra-Modern Glassmorphism Design**: Frosted glass cards, ambient background lighting orbs, smooth borders, and fluid animations.
+- 🎨 **4 Dynamic Switchable Themes** (applied globally to all games):
   - 🌌 **Cyberpunk Glow** (*Default*): Electric purples, deep space blacks, and neon blues.
   - 🌅 **Sunset Horizon**: Warm amber gradients, vivid coral, and dusk violet tones.
   - 🍃 **Emerald Matrix**: Deep forest greens, digital mint highlights, and neon jade glow.
   - ☕ **Classic Warm**: Nostalgic coffee, wood, and warm cream tones inspired by the original 2048.
 - 🔊 **Built-in Web Audio Synthesizer**: Procedural sound effects generated in real-time with the browser's native **Web Audio API** (no external `.mp3` assets required). Includes dedicated sounds for moving, tile merges, victory fanfare, and game over, plus a mute toggle.
 - 📱 **Fully Responsive & Cross-Platform**:
-  - **Desktop Keyboard**: Full support for both Arrow keys and `W`, `A`, `S`, `D`.
-  - **Mobile Touch / Swipe**: Native swipe gesture detection with configurable swipe threshold.
+  - **Desktop Keyboard**: Full support for Arrow keys, `W`, `A`, `S`, `D`, `Space`, and `P`.
+  - **Mobile Touch / Swipe**: Native swipe gesture detection for both 2048 and Snake, with tap controls for Tic-Tac-Toe.
 - 🏆 **Score Persistence & Celebrations**:
-  - Live Score & Best Score tracking saved locally via `localStorage`.
-  - Floating score addition badge (`+points`) on merges.
-  - Confetti particle explosion canvas upon reaching the **2048** milestone.
-  - **Endless Mode**: Ability to "Keep Going" after winning to conquer 4096, 8192, and beyond.
-- ⏸️ **Game Pause & Resume**: Pause your game anytime using the `P` key, `Esc`, or in-game buttons without losing progress.
+  - Live Score & Best Score tracking saved locally via `localStorage` for each game.
+  - Confetti particle explosion canvas upon winning.
 
 ---
 
-## 🎯 How to Play
+## 🎮 Included Games
 
-1. **Slide the Tiles**: Move the tiles on the 4x4 grid in four directions (Up, Down, Left, Right).
-2. **Merge Matching Numbers**: When two tiles with the same number collide, they merge into one with double the value ($2 + 2 = 4$, $4 + 4 = 8$, ..., $1024 + 1024 = 2048$).
-3. **Reach 2048**: Build your strategy to forge the legendary **2048** tile!
-4. **Keep Playing**: Once you reach 2048, choose "Keep Going" to aim for new world-record scores.
-5. **Game Over**: The game ends when the board fills up and no adjacent tiles can be merged.
+### 1. 🔢 2048 Deluxe
+- Slide and merge matching numbers on a 4x4 grid to forge the legendary **2048** tile.
+- Features floating merge score indicators, endless mode, pause/resume, and victory confetti.
+
+### 2. 🐍 Neon Snake
+- Guide the glowing neon serpent to consume pulsing energy orbs while avoiding walls and self-collision.
+- Features particle explosion bursts upon feeding, customizable speed presets (*Casual*, *Normal*, *Turbo*), high score tracking, and touch swipe steering.
+
+### 3. ⭕ Neon Tic-Tac-Toe
+- Play against a **Smart Minimax AI** (unbeatable or casual) or challenge a friend in **2-Player Local Pass & Play**.
+- Features animated glowing SVG marks, laser-glow win strike lines, turn status indicators, and win/draw score counters.
 
 ---
 
-## 🕹️ Controls
+## 🕹️ Controls Guide
 
-| Control Type | Keys / Actions |
-| :--- | :--- |
-| **Arrow Keys** | <kbd>↑</kbd> Up &nbsp;|&nbsp; <kbd>↓</kbd> Down &nbsp;|&nbsp; <kbd>←</kbd> Left &nbsp;|&nbsp; <kbd>→</kbd> Right |
-| **WASD Keys** | <kbd>W</kbd> Up &nbsp;|&nbsp; <kbd>S</kbd> Down &nbsp;|&nbsp; <kbd>A</kbd> Left &nbsp;|&nbsp; <kbd>D</kbd> Right |
-| **Touch / Mobile** | Swipe Up, Down, Left, or Right anywhere on the screen |
-| **Pause / Resume** | Press <kbd>P</kbd> or <kbd>Escape</kbd> |
+| Game | Action | Desktop Controls | Touch / Mobile Controls |
+| :--- | :--- | :--- | :--- |
+| **All Games** | Switch Game | Click tabs on the top Menu Bar | Tap tabs on the top Menu Bar |
+| **All Games** | Theme & Sound | Top right controls | Top right controls |
+| **2048** | Move Tiles | <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> | Swipe in any direction |
+| **2048** | Pause / Resume | <kbd>P</kbd> or <kbd>Escape</kbd> | Pause button |
+| **Snake** | Steer Snake | <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> | Swipe Up, Down, Left, Right |
+| **Snake** | Pause / Resume | <kbd>Space</kbd>, <kbd>P</kbd>, or <kbd>Escape</kbd> | Pause button |
+| **Tic-Tac-Toe** | Place Mark | Mouse click on any cell | Tap on any cell |
+| **Tic-Tac-Toe** | Restart Round | Press <kbd>R</kbd> or click New Round | Tap New Round button |
 
 ---
 
@@ -73,50 +81,27 @@ Run using Node / `npm`:
 ```bash
 npm start
 # or
-npx serve -l 3000 .
+npx serve .
+```
+Then open `http://localhost:3000` (or the displayed port) in your browser.
+
+---
+
+## 📁 Project Structure
+
+```
+├── index.html       # Single-page multi-game markup with top navigation bar
+├── styles.css       # Glassmorphism design system, themes, and game components
+├── script.js        # 2048 game engine, Web Audio synth, and theme controller
+├── snake.js         # Neon Snake engine with particle physics and canvas renderer
+├── tictactoe.js     # Tic-Tac-Toe engine with Minimax AI and 2-Player modes
+├── arcade.js        # Coordinator for game switching, tab state, and input routing
+├── package.json     # Project configuration and local dev scripts
+└── README.md        # Comprehensive documentation and controls guide
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Option 3: VS Code Live Server
-If you use VS Code, right-click [`index.html`](file:///d:/KK-Project/2048%20Game/index.html) and select **"Open with Live Server"**.
-
 ---
 
-## 📂 Project Structure
+## 📜 License
 
-```text
-2048-Game/
-├── index.html       # Semantic HTML5 layout, UI modals, scoreboards & SVG D-Pad
-├── styles.css       # Design tokens, themes, glassmorphism, responsive grid & animations
-├── script.js        # Core game matrix engine, Web Audio synth, touch & confetti logic
-├── package.json     # Project metadata and quick-start scripts
-└── README.md        # Documentation and game guide
-```
-
----
-
-## ⚙️ Architecture & Technical Details
-
-- **Zero External Dependencies**: Pure vanilla web standards.
-- **Web Audio API**: Procedural frequency oscillators (`sine`, `triangle`, `sawtooth`) paired with exponential gain envelopes create crisp 8-bit / modern hybrid UI audio cues without network latency or file loading.
-- **Dynamic Theme Engine**: CSS variables controlled via `data-theme` attribute on the root `<html>` element, saved to `localStorage` for returning players.
-- **Canvas Confetti Particle System**: Lightweight physics-based confetti engine with rotation and velocity calculation drawn on an overlay `<canvas>`.
-- **Responsive Geometry**: CSS clamp and flex/grid layout ensures the game board scales cleanly on screens from small phones to 4K displays.
-
----
-
-## 🤝 Contributing
-
-Contributions, feedback, and star ratings are welcome!
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open source and available under the [ISC License](package.json).
+This project is licensed under the [ISC License](LICENSE). Feel free to customize, modify, and build upon it!

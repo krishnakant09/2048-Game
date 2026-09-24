@@ -533,6 +533,9 @@ window.addEventListener("keydown", function (e) {
     e.preventDefault();
   }
 
+  // Only handle 2048 keys when 2048 is active
+  if (window.activeGame && window.activeGame !== "2048") return;
+
   if (e.code === "ArrowLeft" || e.code === "KeyA") {
     left();
   } else if (e.code === "ArrowRight" || e.code === "KeyD") {
@@ -558,6 +561,7 @@ let touchEndY = 0;
 const minSwipeDistance = 35;
 
 window.addEventListener("touchstart", function (e) {
+  if (window.activeGame && window.activeGame !== "2048") return;
   if (e.touches && e.touches.length > 0) {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
@@ -565,6 +569,7 @@ window.addEventListener("touchstart", function (e) {
 }, { passive: true });
 
 window.addEventListener("touchend", function (e) {
+  if (window.activeGame && window.activeGame !== "2048") return;
   if (e.changedTouches && e.changedTouches.length > 0) {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
@@ -573,6 +578,7 @@ window.addEventListener("touchend", function (e) {
 }, { passive: true });
 
 function handleTouchSwipe() {
+  if (window.activeGame && window.activeGame !== "2048") return;
   const deltaX = touchEndX - touchStartX;
   const deltaY = touchEndY - touchStartY;
 

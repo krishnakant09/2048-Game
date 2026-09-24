@@ -376,12 +376,85 @@ html, body {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 460px;
-  padding: 20px 16px;
+  max-width: 480px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+}
+
+/* ===================================================================
+   TOP GAME SWITCHER NAVIGATION MENU BAR
+   =================================================================== */
+
+.game-nav-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.game-tabs {
+  display: flex;
+  align-items: center;
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 4px;
+  gap: 4px;
+  width: 100%;
+  max-width: 410px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.game-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.game-tab .tab-icon {
+  font-size: 15px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.game-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-glass);
+}
+
+.game-tab:hover .tab-icon {
+  transform: scale(1.15);
+}
+
+.game-tab.active {
+  background: var(--accent-gradient);
+  color: #FFFFFF;
+  border-color: transparent;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.game-tab.active .tab-icon {
+  transform: scale(1.1);
 }
 
 /* ===================================================================
@@ -625,6 +698,30 @@ html, body {
   justify-content: center;
 }
 
+.game-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.game-section.active {
+  animation: stageFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes stageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.game-board-card,
 #container {
   position: relative;
   width: 100%;
@@ -1000,6 +1097,212 @@ html, body {
 }
 
 /* ===================================================================
+   SUB-BAR & PILL CONTROLS (SNAKE SPEED & TIC-TAC-TOE MODES)
+   =================================================================== */
+
+.game-sub-bar {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  padding: 3px 5px;
+  gap: 4px;
+}
+
+.pill-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  padding: 0 4px;
+}
+
+.pill-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.pill-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pill-btn.active {
+  background: var(--accent-gradient);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+/* ===================================================================
+   STAGE 2: NEON SNAKE STYLING
+   =================================================================== */
+
+#snake-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+#snakeCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ===================================================================
+   STAGE 3: NEON TIC-TAC-TOE STYLING
+   =================================================================== */
+
+#ttt-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+}
+
+.ttt-status-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.ttt-status-pill {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass-highlight);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 12px var(--accent-glow);
+  letter-spacing: 0.5px;
+}
+
+.ttt-status-pill .txt-x {
+  color: #38bdf8;
+  font-weight: 900;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+}
+
+.ttt-status-pill .txt-o {
+  color: #f43f5e;
+  font-weight: 900;
+  text-shadow: 0 0 8px rgba(244, 63, 94, 0.7);
+}
+
+.thinking-spinner {
+  display: inline-block;
+  animation: pulse 1s infinite alternate;
+}
+
+.ttt-grid {
+  width: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ttt-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--cell-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--cell-border, rgba(255, 255, 255, 0.06));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ttt-cell:hover:not(.filled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-glass-highlight);
+  transform: scale(1.025);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), 0 0 12px var(--accent-glow);
+}
+
+.ttt-cell:active:not(.filled) {
+  transform: scale(0.97);
+}
+
+.ttt-cell.filled {
+  cursor: default;
+}
+
+.ttt-mark-x,
+.ttt-mark-o {
+  width: 62%;
+  height: 62%;
+  animation: markPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes markPop {
+  0% { transform: scale(0.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ttt-mark-x line {
+  stroke: #38bdf8;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.8));
+}
+
+.ttt-mark-o circle {
+  stroke: #f43f5e;
+  stroke-width: 4.5;
+  fill: none;
+  filter: drop-shadow(0 0 7px rgba(244, 63, 94, 0.8));
+}
+
+.ttt-cell.winning-cell {
+  animation: winPulse 0.8s ease-in-out infinite alternate !important;
+  border-color: var(--text-accent) !important;
+  background: rgba(56, 189, 248, 0.15) !important;
+  box-shadow: 0 0 20px var(--accent-glow), inset 0 0 15px rgba(56, 189, 248, 0.3) !important;
+}
+
+@keyframes winPulse {
+  from { transform: scale(1); filter: brightness(1); }
+  to { transform: scale(1.03); filter: brightness(1.25); }
+}
+
+/* ===================================================================
    CONFETTI CANVAS
    =================================================================== */
 
@@ -1019,10 +1322,19 @@ html, body {
 @media (max-width: 480px) {
   .app-wrapper {
     padding: 12px 10px;
-    gap: 12px;
+    gap: 10px;
+  }
+  .game-tabs {
+    padding: 3px;
+    gap: 3px;
+  }
+  .game-tab {
+    padding: 7px 8px;
+    font-size: 12px;
+    gap: 5px;
   }
   .game-title {
-    font-size: 34px;
+    font-size: 32px;
   }
   .stats-bar {
     gap: 6px;
@@ -1030,11 +1342,15 @@ html, body {
   .score-value {
     font-size: 17px;
   }
+  .game-board-card,
   #container {
     padding: 8px;
     border-radius: var(--radius-md);
   }
   #gamearea {
+    gap: 7px;
+  }
+  .ttt-grid {
     gap: 7px;
   }
   .hint-pill {

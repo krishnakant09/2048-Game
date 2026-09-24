@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2048 Modern Deluxe - Ultra Edition</title>
+    <title>Retro Arcade Deluxe - 2048, Snake & Tic-Tac-Toe</title>
     <meta name="description"
-        content="A stunning, modern glassmorphic 2048 puzzle game with dynamic themes, fluid animations, and high-fidelity sound.">
+        content="A modern glassmorphic arcade suite with dynamic themes, procedural sound, and instant switching between 2048, Neon Snake, and Tic-Tac-Toe.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +24,33 @@
     <div class="ambient-light orb-3"></div>
 
     <div class="app-wrapper">
-        <!-- Game Header -->
+        <!-- Top Glassmorphic Game Switcher Menu Bar -->
+        <nav class="game-nav-bar" id="gameNavBar" aria-label="Arcade Game Selection">
+            <div class="game-tabs" role="tablist">
+                <button class="game-tab active" data-game="2048" id="tab-2048" role="tab" aria-selected="true"
+                    aria-controls="stage-2048" onclick="switchGame('2048')">
+                    <span class="tab-icon">🔢</span>
+                    <span class="tab-label">2048</span>
+                </button>
+                <button class="game-tab" data-game="snake" id="tab-snake" role="tab" aria-selected="false"
+                    aria-controls="stage-snake" onclick="switchGame('snake')">
+                    <span class="tab-icon">🐍</span>
+                    <span class="tab-label">Snake</span>
+                </button>
+                <button class="game-tab" data-game="tictactoe" id="tab-tictactoe" role="tab" aria-selected="false"
+                    aria-controls="stage-tictactoe" onclick="switchGame('tictactoe')">
+                    <span class="tab-icon">⭕</span>
+                    <span class="tab-label">Tic-Tac-Toe</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Common Game Header (Dynamic Brand + Global Theme & Sound) -->
         <header class="game-header">
             <div class="header-top">
                 <div class="logo-badge">
-                    <h1 class="game-title">20<span class="highlight">48</span></h1>
-                    <span class="badge-tag">DELUXE</span>
+                    <h1 class="game-title" id="arcadeTitle">20<span class="highlight">48</span></h1>
+                    <span class="badge-tag" id="arcadeBadge">DELUXE</span>
                 </div>
                 <div class="header-actions">
                     <div class="theme-picker-wrapper">
@@ -48,138 +69,319 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Score Cards Bar -->
-            <div class="stats-bar">
-                <div class="score-card current-score">
-                    <span class="score-label">SCORE</span>
-                    <span id="score" class="score-value">0</span>
-                    <span id="scoreAddition" class="score-addition"></span>
-                </div>
-                <div class="score-card best-score">
-                    <span class="score-label">BEST</span>
-                    <span id="bestScore" class="score-value">0</span>
-                </div>
-                <div class="actions-card">
-                    <button id="newGameBtn" class="primary-btn" onclick="startNewGame()">New Game</button>
-                    <button id="pauseBtn" class="secondary-btn" onclick="pauseGame()"
-                        style="display: none;">Pause</button>
-                </div>
-            </div>
         </header>
 
-        <!-- Main Game Stage -->
+        <!-- Main Multi-Game Stage -->
         <main class="game-stage">
-            <div id="container">
-                <!-- Board Grid Background and Tile Grid -->
-                <div id="gamearea">
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                </div>
-
-                <!-- Overlay Screens -->
-                <!-- Splash / Start Screen -->
-                <div id="splash" class="modal-overlay">
-                    <div class="modal-card">
-                        <div class="splash-hero">
-                            <span class="splash-badge">JOIN THE TILES</span>
-                            <h1>20<span class="glow-txt-1">4</span><span class="glow-txt-2">8</span></h1>
-                            <p class="splash-subtitle">Merge matching numbers to reach the legendary 2048 tile!</p>
-                        </div>
-                        <button id="start" class="glow-button" onclick="start()">
-                            <span>Play Now</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                            </svg>
-                        </button>
+            <!-- ==========================================
+                 STAGE 1: 2048 DELUXE
+                 ========================================== -->
+            <section id="stage-2048" class="game-section active" role="tabpanel" aria-labelledby="tab-2048">
+                <!-- Score Cards Bar -->
+                <div class="stats-bar">
+                    <div class="score-card current-score">
+                        <span class="score-label">SCORE</span>
+                        <span id="score" class="score-value">0</span>
+                        <span id="scoreAddition" class="score-addition"></span>
+                    </div>
+                    <div class="score-card best-score">
+                        <span class="score-label">BEST</span>
+                        <span id="bestScore" class="score-value">0</span>
+                    </div>
+                    <div class="actions-card">
+                        <button id="newGameBtn" class="primary-btn" onclick="startNewGame()">New Game</button>
+                        <button id="pauseBtn" class="secondary-btn" onclick="pauseGame()"
+                            style="display: none;">Pause</button>
                     </div>
                 </div>
 
-                <!-- Pause Screen -->
-                <div id="pause" class="modal-overlay" style="display: none;">
-                    <div class="modal-card">
-                        <div class="modal-icon">⏸️</div>
-                        <h2>Game Paused</h2>
-                        <p>Take a breath. Your progress is safe.</p>
-                        <div class="modal-btn-group">
-                            <button class="primary-btn pulse" onclick="resumeGame()">Continue</button>
-                            <button class="secondary-btn" onclick="resetGame()">Restart</button>
-                        </div>
+                <!-- 2048 Board Container -->
+                <div id="container" class="game-board-card">
+                    <!-- Board Grid Background and Tile Grid -->
+                    <div id="gamearea">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
                     </div>
-                </div>
 
-                <!-- Game Over Screen -->
-                <div id="gameOverModal" class="modal-overlay" style="display: none;">
-                    <div class="modal-card">
-                        <div class="modal-icon">💥</div>
-                        <h2>Game Over</h2>
-                        <p class="modal-desc">No more valid moves available!</p>
-                        <div class="modal-score-summary">
-                            <div class="summary-box">
-                                <span>Final Score</span>
-                                <strong id="finalScoreVal">0</strong>
+                    <!-- Overlay Screens -->
+                    <!-- Splash / Start Screen -->
+                    <div id="splash" class="modal-overlay">
+                        <div class="modal-card">
+                            <div class="splash-hero">
+                                <span class="splash-badge">JOIN THE TILES</span>
+                                <h1>20<span class="glow-txt-1">4</span><span class="glow-txt-2">8</span></h1>
+                                <p class="splash-subtitle">Merge matching numbers to reach the legendary 2048 tile!</p>
                             </div>
-                            <div class="summary-box">
-                                <span>Best Score</span>
-                                <strong id="finalBestVal">0</strong>
+                            <button id="start" class="glow-button" onclick="start()">
+                                <span>Play Now</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Pause Screen -->
+                    <div id="pause" class="modal-overlay" style="display: none;">
+                        <div class="modal-card">
+                            <div class="modal-icon">⏸️</div>
+                            <h2>Game Paused</h2>
+                            <p>Take a breath. Your progress is safe.</p>
+                            <div class="modal-btn-group">
+                                <button class="primary-btn pulse" onclick="resumeGame()">Continue</button>
+                                <button class="secondary-btn" onclick="resetGame()">Restart</button>
                             </div>
                         </div>
-                        <button class="glow-button" onclick="resetGame()">Try Again</button>
+                    </div>
+
+                    <!-- Game Over Screen -->
+                    <div id="gameOverModal" class="modal-overlay" style="display: none;">
+                        <div class="modal-card">
+                            <div class="modal-icon">💥</div>
+                            <h2>Game Over</h2>
+                            <p class="modal-desc">No more valid moves available!</p>
+                            <div class="modal-score-summary">
+                                <div class="summary-box">
+                                    <span>Final Score</span>
+                                    <strong id="finalScoreVal">0</strong>
+                                </div>
+                                <div class="summary-box">
+                                    <span>Best Score</span>
+                                    <strong id="finalBestVal">0</strong>
+                                </div>
+                            </div>
+                            <button class="glow-button" onclick="resetGame()">Try Again</button>
+                        </div>
+                    </div>
+
+                    <!-- 2048 Victory Screen -->
+                    <div id="winModal" class="modal-overlay" style="display: none;">
+                        <div class="modal-card win-card">
+                            <div class="modal-icon">🏆</div>
+                            <h2>You Won!</h2>
+                            <p class="modal-desc">Congratulations! You successfully forged the <strong>2048</strong> tile!
+                            </p>
+                            <div class="modal-btn-group">
+                                <button class="primary-btn pulse" onclick="continuePlaying()">Keep Going</button>
+                                <button class="secondary-btn" onclick="resetGame()">New Game</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 2048 Victory Screen -->
-                <div id="winModal" class="modal-overlay" style="display: none;">
-                    <div class="modal-card win-card">
-                        <div class="modal-icon">🏆</div>
-                        <h2>You Won!</h2>
-                        <p class="modal-desc">Congratulations! You successfully forged the <strong>2048</strong> tile!
-                        </p>
-                        <div class="modal-btn-group">
-                            <button class="primary-btn pulse" onclick="continuePlaying()">Keep Going</button>
-                            <button class="secondary-btn" onclick="resetGame()">New Game</button>
+                <!-- Controls Helper Info -->
+                <footer class="game-footer">
+                    <div class="hint-pill">
+                        <span class="kbd-badge">↑</span>
+                        <span class="kbd-badge">←</span>
+                        <span class="kbd-badge">↓</span>
+                        <span class="kbd-badge">→</span>
+                        <span>or</span>
+                        <span class="kbd-badge">W</span>
+                        <span class="kbd-badge">A</span>
+                        <span class="kbd-badge">S</span>
+                        <span class="kbd-badge">D</span>
+                        <span class="hint-text">to move tiles &bull; Swipe on touchscreens</span>
+                    </div>
+                </footer>
+            </section>
+
+            <!-- ==========================================
+                 STAGE 2: NEON SNAKE
+                 ========================================== -->
+            <section id="stage-snake" class="game-section" role="tabpanel" aria-labelledby="tab-snake"
+                style="display: none;">
+                <!-- Snake Stats Bar -->
+                <div class="stats-bar">
+                    <div class="score-card current-score">
+                        <span class="score-label">SCORE</span>
+                        <span id="snakeScore" class="score-value">0</span>
+                    </div>
+                    <div class="score-card best-score">
+                        <span class="score-label">BEST</span>
+                        <span id="snakeBestScore" class="score-value">0</span>
+                    </div>
+                    <div class="actions-card">
+                        <button class="primary-btn" onclick="snakeGame.start()">New Game</button>
+                        <button id="snakePauseBtn" class="secondary-btn" onclick="snakeGame.togglePause()"
+                            style="display: none;">Pause</button>
+                    </div>
+                </div>
+
+                <!-- Snake Speed Settings Bar -->
+                <div class="game-sub-bar">
+                    <div class="pill-group">
+                        <span class="pill-label">SPEED:</span>
+                        <button class="pill-btn"
+                            onclick="snakeGame.setSpeed('casual'); this.parentElement.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Casual</button>
+                        <button class="pill-btn active"
+                            onclick="snakeGame.setSpeed('normal'); this.parentElement.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Normal</button>
+                        <button class="pill-btn"
+                            onclick="snakeGame.setSpeed('turbo'); this.parentElement.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Turbo</button>
+                    </div>
+                </div>
+
+                <!-- Snake Canvas Container -->
+                <div class="game-board-card" id="snake-container">
+                    <canvas id="snakeCanvas"></canvas>
+
+                    <!-- Snake Splash Screen -->
+                    <div id="snakeSplash" class="modal-overlay">
+                        <div class="modal-card">
+                            <div class="splash-hero">
+                                <span class="splash-badge">NEON SERPENT</span>
+                                <h1>SNA<span class="glow-txt-1">K</span><span class="glow-txt-2">E</span></h1>
+                                <p class="splash-subtitle">Guide the glowing snake, consume energy orbs, and avoid collisions!</p>
+                            </div>
+                            <button class="glow-button" onclick="snakeGame.start()">
+                                <span>Play Snake</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Snake Pause Screen -->
+                    <div id="snakePauseModal" class="modal-overlay" style="display: none;">
+                        <div class="modal-card">
+                            <div class="modal-icon">⏸️</div>
+                            <h2>Snake Paused</h2>
+                            <p>Take a breath. The arena is frozen.</p>
+                            <div class="modal-btn-group">
+                                <button class="primary-btn pulse" onclick="snakeGame.resume()">Resume</button>
+                                <button class="secondary-btn" onclick="snakeGame.start()">Restart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Snake Game Over Screen -->
+                    <div id="snakeGameOverModal" class="modal-overlay" style="display: none;">
+                        <div class="modal-card">
+                            <div class="modal-icon">💥</div>
+                            <h2>Crashed!</h2>
+                            <p class="modal-desc">The serpent collided with an obstacle!</p>
+                            <div class="modal-score-summary">
+                                <div class="summary-box">
+                                    <span>Score</span>
+                                    <strong id="snakeFinalScore">0</strong>
+                                </div>
+                                <div class="summary-box">
+                                    <span>Best</span>
+                                    <strong id="snakeFinalBest">0</strong>
+                                </div>
+                            </div>
+                            <button class="glow-button" onclick="snakeGame.start()">Play Again</button>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- Snake Footer Helper -->
+                <footer class="game-footer">
+                    <div class="hint-pill">
+                        <span class="kbd-badge">↑</span>
+                        <span class="kbd-badge">←</span>
+                        <span class="kbd-badge">↓</span>
+                        <span class="kbd-badge">→</span>
+                        <span>or</span>
+                        <span class="kbd-badge">W</span>
+                        <span class="kbd-badge">A</span>
+                        <span class="kbd-badge">S</span>
+                        <span class="kbd-badge">D</span>
+                        <span class="hint-text">to steer &bull; Space/P to pause &bull; Swipe on touch</span>
+                    </div>
+                </footer>
+            </section>
+
+            <!-- ==========================================
+                 STAGE 3: NEON TIC-TAC-TOE
+                 ========================================== -->
+            <section id="stage-tictactoe" class="game-section" role="tabpanel" aria-labelledby="tab-tictactoe"
+                style="display: none;">
+                <!-- Tic-Tac-Toe Stats Bar -->
+                <div class="stats-bar">
+                    <div class="score-card">
+                        <span class="score-label">PLAYER X</span>
+                        <span id="tttScoreX" class="score-value">0</span>
+                    </div>
+                    <div class="score-card">
+                        <span class="score-label">DRAWS</span>
+                        <span id="tttScoreTies" class="score-value">0</span>
+                    </div>
+                    <div class="score-card">
+                        <span class="score-label" id="tttLabelO">AI (O)</span>
+                        <span id="tttScoreO" class="score-value">0</span>
+                    </div>
+                    <div class="actions-card">
+                        <button class="primary-btn" onclick="tttGame.resetRound()">New Round</button>
+                        <button class="secondary-btn" onclick="tttGame.resetAllScores()">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Tic-Tac-Toe Mode & Difficulty Settings -->
+                <div class="game-sub-bar">
+                    <div class="pill-group">
+                        <button class="pill-btn ttt-mode-btn active" data-mode="ai"
+                            onclick="tttGame.setMode('ai')">🤖 vs AI</button>
+                        <button class="pill-btn ttt-mode-btn" data-mode="pvp"
+                            onclick="tttGame.setMode('pvp')">👥 2 Players</button>
+                    </div>
+                    <div class="pill-group">
+                        <button class="pill-btn ttt-diff-btn active" data-diff="unbeatable"
+                            onclick="tttGame.setDifficulty('unbeatable')">Smart AI</button>
+                        <button class="pill-btn ttt-diff-btn" data-diff="casual"
+                            onclick="tttGame.setDifficulty('casual')">Casual</button>
+                    </div>
+                </div>
+
+                <!-- Tic-Tac-Toe Board Container -->
+                <div class="game-board-card" id="ttt-container">
+                    <div class="ttt-status-bar">
+                        <div class="ttt-status-pill" id="tttStatus">
+                            Your Turn (<span class="txt-x">X</span>)
+                        </div>
+                    </div>
+
+                    <div id="tttGrid" class="ttt-grid" role="grid" aria-label="Tic-Tac-Toe Board">
+                        <!-- 9 Interactive Cells rendered dynamically by tictactoe.js -->
+                    </div>
+                </div>
+
+                <!-- Tic-Tac-Toe Footer Helper -->
+                <footer class="game-footer">
+                    <div class="hint-pill">
+                        <span class="hint-text">Click or tap any cell to place mark &bull; Press <span
+                                class="kbd-badge">R</span> to restart round</span>
+                    </div>
+                </footer>
+            </section>
         </main>
-
-        <!-- Controls Helper Info -->
-        <footer class="game-footer">
-            <div class="hint-pill">
-                <span class="kbd-badge">↑</span>
-                <span class="kbd-badge">←</span>
-                <span class="kbd-badge">↓</span>
-                <span class="kbd-badge">→</span>
-                <span>or</span>
-                <span class="kbd-badge">W</span>
-                <span class="kbd-badge">A</span>
-                <span class="kbd-badge">S</span>
-                <span class="kbd-badge">D</span>
-                <span class="hint-text">to move tiles &bull; Swipe on touchscreens</span>
-            </div>
-        </footer>
     </div>
 
     <!-- Celebration Confetti Canvas -->
     <canvas id="confettiCanvas"></canvas>
 
+    <!-- Game Scripts -->
     <script src="script.js"></script>
+    <script src="snake.js"></script>
+    <script src="tictactoe.js"></script>
+    <script src="arcade.js"></script>
 </body>
 
 </html>
