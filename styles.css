@@ -952,75 +952,6 @@ html, body {
   transform: translateY(0);
 }
 
-/* ===================================================================
-   VIRTUAL D-PAD CONTROLLER
-   =================================================================== */
-
-.control-panel {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 4px;
-}
-
-.dpad-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.dpad-mid-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.dpad-center-hub {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-glass);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dpad-center-hub span {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
-}
-
-.dpad-btn {
-  width: 44px;
-  height: 44px;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: var(--transition-smooth);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-.dpad-btn:hover {
-  border-color: var(--border-glass-highlight);
-  background: var(--bg-surface);
-  transform: scale(1.08);
-  box-shadow: 0 0 14px var(--accent-glow);
-}
-
-.dpad-btn:active {
-  transform: scale(0.94);
-}
 
 /* ===================================================================
    FOOTER & KEYBOARD HINTS
@@ -1105,10 +1036,6 @@ html, body {
   }
   #gamearea {
     gap: 7px;
-  }
-  .dpad-btn, .dpad-center-hub {
-    width: 40px;
-    height: 40px;
   }
   .hint-pill {
     font-size: 10px;

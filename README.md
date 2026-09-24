@@ -24,7 +24,6 @@ An ultra-modern, aesthetic, and responsive edition of the classic **2048** puzzl
 - 📱 **Fully Responsive & Cross-Platform**:
   - **Desktop Keyboard**: Full support for both Arrow keys and `W`, `A`, `S`, `D`.
   - **Mobile Touch / Swipe**: Native swipe gesture detection with configurable swipe threshold.
-  - **Virtual On-Screen D-Pad**: Clickable and touch-friendly control panel for accessible gameplay on any device.
 - 🏆 **Score Persistence & Celebrations**:
   - Live Score & Best Score tracking saved locally via `localStorage`.
   - Floating score addition badge (`+points`) on merges.
@@ -51,7 +50,6 @@ An ultra-modern, aesthetic, and responsive edition of the classic **2048** puzzl
 | **Arrow Keys** | <kbd>↑</kbd> Up &nbsp;|&nbsp; <kbd>↓</kbd> Down &nbsp;|&nbsp; <kbd>←</kbd> Left &nbsp;|&nbsp; <kbd>→</kbd> Right |
 | **WASD Keys** | <kbd>W</kbd> Up &nbsp;|&nbsp; <kbd>S</kbd> Down &nbsp;|&nbsp; <kbd>A</kbd> Left &nbsp;|&nbsp; <kbd>D</kbd> Right |
 | **Touch / Mobile** | Swipe Up, Down, Left, or Right anywhere on the screen |
-| **On-Screen D-Pad** | Click or tap the virtual directional buttons on the lower panel |
 | **Pause / Resume** | Press <kbd>P</kbd> or <kbd>Escape</kbd> |
 
 ---
